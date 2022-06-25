@@ -24,8 +24,8 @@ default: &default
 development:
   <<: *default
   database: attendance_backend_development
-  username: attendance_backend
-  password: joshuass
+  username: <%= ENV['DEV_DATABASE_USERNAME'] %>
+  password: <%= ENV['DEV_DATABASE_PASSWORD'] %>
   host: localhost
 
   # The TCP port the server listens on. Defaults to 5432.
