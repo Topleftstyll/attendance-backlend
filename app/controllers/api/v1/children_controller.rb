@@ -1,11 +1,10 @@
 class Api::V1::ChildrenController < ApplicationController
   before_action :authenticate_user!
-  #before_action :set_api_v1_child, only: %i[ show update destroy ]
+  before_action :set_api_v1_child, only: %i[ show update destroy ]
 
   # GET /api/v1/children
   def index
     @api_v1_children = Api::V1::Child.all
-    puts current_user.inspect
 
     render json: @api_v1_children
   end
