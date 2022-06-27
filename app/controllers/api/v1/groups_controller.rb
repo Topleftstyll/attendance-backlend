@@ -11,7 +11,10 @@ class Api::V1::GroupsController < ApplicationController
 
   # GET /api/v1/groups/1
   def show
-    render json: @api_v1_group
+    render json: {
+      'group': @api_v1_group,
+      'children': @api_v1_group.children
+    }
   end
 
   # POST /api/v1/groups
@@ -42,7 +45,7 @@ class Api::V1::GroupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_api_v1_group
-      @api_v1_group = Api::V1::Group.find(params[:id])
+      @api_v1_group = current_user.groups.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
