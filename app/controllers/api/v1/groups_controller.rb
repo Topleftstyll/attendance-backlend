@@ -11,9 +11,23 @@ class Api::V1::GroupsController < ApplicationController
 
   # GET /api/v1/groups/1
   def show
+    new_children_list = []
+    @api_v1_group.children.each do |child|
+      new_children_list << {
+        id: child.id,
+        first_name: child.first_name,
+        last_name: child.last_name,
+        full_name: "#{child.first_name} #{child.last_name}",
+        teacher: nil,
+        attendance: nil,
+        guardian: nil,
+        group: child.group
+      }
+    end
+
     render json: {
       'group': @api_v1_group,
-      'children': @api_v1_group.children
+      'children': new_children_list
     }
   end
 
