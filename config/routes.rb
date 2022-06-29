@@ -8,6 +8,8 @@ Rails.application.routes.draw do
               
   namespace :api do
     namespace :v1 do
+      resources :guardians
+      resources :teachers
       resources :groups
       resources :children
       resources :current_users, :path => 'current-user', :as => :check_user
