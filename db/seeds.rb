@@ -24,6 +24,8 @@ require 'faker'
 #     end
 # end
 
+#please make a conflict
+
 # Api::V1::Child.all.each do |child|
 #     rand(1..10).times do |i|
 #         first_name = Faker::Name.first_name
