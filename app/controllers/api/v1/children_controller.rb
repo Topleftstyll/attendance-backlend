@@ -8,7 +8,7 @@ class Api::V1::ChildrenController < ApplicationController
 
     group_ids_list = current_user.groups.map do |group| group.id end
 
-    Api::V1::Child.all.where(id: group_ids_list).each do |child|
+    Api::V1::Child.where(group_id: group_ids_list).each do |child|
       new_children_list << {
         id: child.id,
         first_name: child.first_name,

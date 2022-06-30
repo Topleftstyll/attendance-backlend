@@ -12,8 +12,6 @@ require 'faker'
 #         user_id: 1,
 #         group_id: group.id
 #     )
-#     puts teacher.inspect
-#     group.update_attribute(:name, Faker::Beer.name)
 #     group.update_attribute(:teacher_id, teacher.id)
 #     rand(1..10).times do |i|
 #         Api::V1::Child.create(
