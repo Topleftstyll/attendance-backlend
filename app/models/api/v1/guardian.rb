@@ -1,3 +1,4 @@
 class Api::V1::Guardian < ApplicationRecord
-    belongs_to :child, dependent: :destroy, class_name: 'Api::V1::Child'
+    has_many :child_guardians, class_name: 'Api::V1::ChildGuardian'
+    has_many :children, :through => :child_guardians
 end
