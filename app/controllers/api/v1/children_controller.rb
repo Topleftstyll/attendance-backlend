@@ -9,6 +9,16 @@ class Api::V1::ChildrenController < ApplicationController
     group_ids_list = current_user.groups.map do |group| group.id end
 
     Api::V1::Child.where(group_id: group_ids_list).each do |child|
+      new_guardian_list = []
+      child.guardians.all.each do |guardian|
+        new_guardian_list << {
+          id: guardian.id,
+          first_name: guardian.first_name,
+          last_name: guardian.last_name,
+          full_name: "#{guardian.first_name} #{guardian.last_name}",
+        }
+      end
+
       new_children_list << {
         id: child.id,
         first_name: child.first_name,
@@ -16,7 +26,7 @@ class Api::V1::ChildrenController < ApplicationController
         full_name: "#{child.first_name} #{child.last_name}",
         teacher: nil,
         attendance: nil,
-        guardian: nil,
+        guardians: new_guardian_list,
         group: child.group
       }
     end
@@ -33,7 +43,7 @@ class Api::V1::ChildrenController < ApplicationController
       full_name: "#{@api_v1_child.first_name} #{@api_v1_child.last_name}",
       teacher: nil,
       attendance: nil,
-      guardian: nil,
+      guardian: @api_v1_child.guardians,
       group: @api_v1_child.group,
       groups: current_user.groups
     }

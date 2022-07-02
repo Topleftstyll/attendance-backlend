@@ -42,6 +42,7 @@ class Api::V1::GuardiansController < ApplicationController
   # POST /api/v1/guardians
   def create
     @api_v1_guardian = Api::V1::Guardian.new(api_v1_guardian_params)
+    @api_v1_guardian.update_attribute(:user_id, current_user.id)
 
     if @api_v1_guardian.save
       render json: @api_v1_guardian, status: :created, location: @api_v1_guardian
@@ -72,6 +73,6 @@ class Api::V1::GuardiansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def api_v1_guardian_params
-      params.require(:api_v1_guardian).permit(:name, :email, :phone_number, :child_id)
+      params.require(:api_v1_guardian).permit(:email, :first_name, :last_name, :phone_number, :child_id)
     end
 end
