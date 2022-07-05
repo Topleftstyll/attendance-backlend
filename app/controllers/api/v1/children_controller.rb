@@ -36,6 +36,26 @@ class Api::V1::ChildrenController < ApplicationController
 
   # GET /api/v1/children/1
   def show
+    current_guardians_list = []
+    @api_v1_child.guardians.all.each do |guardian|
+      current_guardians_list << {
+        id: guardian.id,
+        first_name: guardian.first_name,
+        last_name: guardian.last_name,
+        full_name: "#{guardian.first_name} #{guardian.last_name}",
+      }
+    end
+
+    all_guardians_list = []
+    current_user.guardians.all.each do |guardian|
+      all_guardians_list << {
+        id: guardian.id,
+        first_name: guardian.first_name,
+        last_name: guardian.last_name,
+        full_name: "#{guardian.first_name} #{guardian.last_name}",
+      }
+    end
+
     render json: {
       id: @api_v1_child.id,
       first_name: @api_v1_child.first_name,
@@ -43,7 +63,8 @@ class Api::V1::ChildrenController < ApplicationController
       full_name: "#{@api_v1_child.first_name} #{@api_v1_child.last_name}",
       teacher: nil,
       attendance: nil,
-      guardian: @api_v1_child.guardians,
+      current_guardians: current_guardians_list,
+      all_guardians: all_guardians_list,
       group: @api_v1_child.group,
       groups: current_user.groups
     }
